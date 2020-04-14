@@ -19,7 +19,7 @@ namespace RiderAutocolor
         /// <param name="directory">The path to a directory where you want to process all the solutions.</param>
         /// <param name="lightness">Lightness of the color.</param>
         /// <param name="saturation">Saturation of the color.</param>
-        static void Main(string sln = null, string directory = null, double lightness = 0.14, double saturation = 0.52)
+        static void Main(string sln = null, string directory = null, double lightness = 0.25, double saturation = 0.60)
         {
             if ((string.IsNullOrEmpty(sln) ^ string.IsNullOrEmpty(directory)) == false)
             {
@@ -42,55 +42,62 @@ namespace RiderAutocolor
 
         private static void ProcessSolution(string sln, double lightness, double saturation)
         {
+            Console.WriteLine(sln);
             var projectFileExtensions = new[] {"csproj", "fsproj"};
 
             var slnInfo = new FileInfo(sln);
             var configPath = $@"{slnInfo.Directory.FullName}\.idea\.idea.{Path.GetFileNameWithoutExtension(slnInfo.FullName)}\.idea\workspace.xml";
-            var projects =
-                projectFileExtensions.SelectMany(extension =>
-                        Directory.GetFiles(slnInfo.Directory.FullName, $"*.{extension}", SearchOption.AllDirectories)
-                    )
-                    .OrderBy(f => f)
-                    .ToList();
-            var hueIndex = 0d;
 
-            var xml = XElement.Load(configPath);
-            var fileColors = GetNode(xml, "FileColors");
-            var namedScopeManager = GetNode(xml, "NamedScopeManager");
-
-            foreach (var project in projects)
+            if (File.Exists(configPath))
             {
-                var fi = new FileInfo(project);
+                var projects =
+                    projectFileExtensions.SelectMany(extension =>
+                            Directory.GetFiles(slnInfo.Directory.FullName, $"*.{extension}", SearchOption.AllDirectories)
+                        )
+                        .OrderBy(f => f)
+                        .ToList();
+                var hueIndex = 0d;
 
-                var projectPath = GetProjectPath(slnInfo.Directory.FullName, fi.Directory.FullName)
-                    .Replace("\\", "/");
+                var xml = XElement.Load(configPath);
+                var fileColors = GetNode(xml, "FileColors");
+                var namedScopeManager = GetNode(xml, "NamedScopeManager");
 
-                var pattern = $@"file[riderModule]:{projectPath}//*";
-                var scopeName = $@"Project:{Path.GetFileNameWithoutExtension(fi.FullName)}";
+                foreach (var project in projects)
+                {
+                    var fi = new FileInfo(project);
 
-                Console.WriteLine(scopeName);
+                    var projectPath = GetProjectPath(slnInfo.Directory.FullName, fi.Directory.FullName)
+                        .Replace("\\", "/");
 
-                // var color = new HslColor(hueIndex / 360.0, 0.8, 0.85);
-                var color = new HslColor(hueIndex / 360.0, saturation, lightness);
+                    var pattern = $@"file[riderModule]:{projectPath}//*";
+                    var scopeName = $@"Project:{Path.GetFileNameWithoutExtension(fi.FullName)}";
 
-                namedScopeManager.Add(
-                    new XElement("scope",
-                        new XAttribute("name", scopeName),
-                        new XAttribute("pattern", pattern)
-                    )
-                );
+                    Console.WriteLine($"- {scopeName}");
 
-                fileColors.Add(
-                    new XElement("fileColor",
-                        new XAttribute("scope", scopeName),
-                        new XAttribute("color", color.ToHex())
-                    )
-                );
+                    // var color = new HslColor(hueIndex / 360.0, 0.8, 0.85);
+                    var color = new HslColor(hueIndex / 360.0, saturation, lightness);
 
-                hueIndex = (hueIndex + 50) % 360;
+                    namedScopeManager.Add(
+                        new XElement("scope",
+                            new XAttribute("name", scopeName),
+                            new XAttribute("pattern", pattern)
+                        )
+                    );
+
+                    fileColors.Add(
+                        new XElement("fileColor",
+                            new XAttribute("scope", scopeName),
+                            new XAttribute("color", color.ToHex())
+                        )
+                    );
+
+                    hueIndex = (hueIndex + 50) % 360;
+                }
+
+                xml.Save(configPath);
             }
 
-            xml.Save(configPath);
+            Console.WriteLine();
         }
 
         internal static string GetProjectPath(string slnDirectory, string projectDirectory)
