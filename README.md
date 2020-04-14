@@ -14,12 +14,17 @@ Inspiration from Visual Studio's [Custom Document Well](https://marketplace.visu
 
 Normal usage :
 
-    dotnet run -- --sln-path "PATH_TO_SLN_FILE"
+    dotnet run -- --sln "PATH_TO_SLN_FILE"
+
+Whole directory usage :
+
+    dotnet run -- --directory "PATH_TO_DIRECTORY"
 
 Show help :
 
     dotnet run -- --help
 
-## Example
+## Examples
 
-    dotnet run -- --sln-path "D:\GIT\Main.Library\Library.sln"
+    dotnet run -- --sln "D:\GIT\Main.Library\Library.sln"
+    dotnet run -- --directory "D:\GIT\"

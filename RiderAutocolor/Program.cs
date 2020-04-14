@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Skybrud.Colors;
@@ -16,14 +15,36 @@ namespace RiderAutocolor
         /// <summary>
         /// This program modifies workspace.xml configuration file to have a different color for each project of the solution.
         /// </summary>
-        /// <param name="slnPath">The path to the sln file you work on.</param>
+        /// <param name="sln">The path to the sln file you work on.</param>
+        /// <param name="directory">The path to a directory where you want to process all the solutions.</param>
         /// <param name="lightness">Lightness of the color.</param>
         /// <param name="saturation">Saturation of the color.</param>
-        static void Main(string slnPath, double lightness = 0.25, double saturation = 0.52)
+        static void Main(string sln = null, string directory = null, double lightness = 0.14, double saturation = 0.52)
+        {
+            if ((string.IsNullOrEmpty(sln) ^ string.IsNullOrEmpty(directory)) == false)
+            {
+                throw new Exception($"You should provide one of the arguments sln or directory.");
+            }
+
+            if (!string.IsNullOrEmpty(sln))
+            {
+                ProcessSolution(sln, lightness, saturation);
+            }
+            else
+            {
+                var solutions = Directory.GetFiles(directory, "*.sln", SearchOption.AllDirectories);
+                foreach (var solution in solutions)
+                {
+                    ProcessSolution(solution, lightness, saturation);
+                }
+            }
+        }
+
+        private static void ProcessSolution(string sln, double lightness, double saturation)
         {
             var projectFileExtensions = new[] {"csproj", "fsproj"};
 
-            var slnInfo = new FileInfo(slnPath);
+            var slnInfo = new FileInfo(sln);
             var configPath = $@"{slnInfo.Directory.FullName}\.idea\.idea.{Path.GetFileNameWithoutExtension(slnInfo.FullName)}\.idea\workspace.xml";
             var projects =
                 projectFileExtensions.SelectMany(extension =>
