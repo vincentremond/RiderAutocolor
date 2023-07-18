@@ -69,7 +69,7 @@ namespace RiderAutocolor
                     var projectPath = GetProjectPath(slnInfo.Directory.FullName, fi.Directory.FullName)
                         .Replace("\\", "/");
 
-                    var pattern = $@"file[riderModule]:{projectPath}//*";
+                    var pattern = $@"file[rider.module]:{projectPath}//*";
                     var scopeName = $@"Project:{Path.GetFileNameWithoutExtension(fi.FullName)}";
 
                     Console.WriteLine($"- {scopeName}");
