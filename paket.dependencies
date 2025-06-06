@@ -1,0 +1,8 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+nuget Microsoft.NET.Test.Sdk
+nuget nunit
+nuget NUnit3TestAdapter
+nuget Skybrud.Colors
+nuget System.CommandLine.DragonFruit

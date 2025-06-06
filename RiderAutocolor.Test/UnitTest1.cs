@@ -1,24 +1,18 @@
 using NUnit.Framework;
 
-namespace RiderAutocolor.Test
+namespace RiderAutocolor.Test;
+
+public class Tests
 {
-    public class Tests
+    [Test]
+    [TestCase(@"C:\Dir1\Solution1", @"C:\Dir1\Solution1\Project1", "Project1")]
+    [TestCase(@"C:\Dir1\Solution1\", @"C:\Dir1\Solution1\Project1", "Project1")]
+    [TestCase(@"C:\Dir1\Solution1", @"C:\Dir1\Solution1\Project1\", "Project1")]
+    [TestCase(@"C:\Dir1\Solution1", @"C:\Dir1\Solution1\Project1\Project.2\", @"Project1\Project.2")]
+    public void Test1(string sln, string csproj, string result)
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
+        var projectPath = Program.GetProjectPath(sln, csproj);
 
-        [Test]
-        [TestCase(@"C:\Dir1\Solution1", @"C:\Dir1\Solution1\Project1", "Project1")]
-        [TestCase(@"C:\Dir1\Solution1\", @"C:\Dir1\Solution1\Project1", "Project1")]
-        [TestCase(@"C:\Dir1\Solution1", @"C:\Dir1\Solution1\Project1\", "Project1")]
-        [TestCase(@"C:\Dir1\Solution1", @"C:\Dir1\Solution1\Project1\Project.2\", @"Project1\Project.2")]
-        public void Test1(string sln, string csproj, string result)
-        {
-            var projectPath = Program.GetProjectPath(sln, csproj);
-
-            Assert.AreEqual(result, projectPath);
-        }
+        Assert.That(projectPath, Is.EqualTo(result));
     }
 }
