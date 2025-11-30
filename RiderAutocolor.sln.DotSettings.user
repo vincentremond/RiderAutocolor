@@ -1,4 +1,13 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AEqualStringConstraint_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003Ftmp_003F2025_002D06_003F2025_002D06_002D24_002D_002DRiderPlugin_003FPinicolaSynthetic_003FPinicolaSynthetic_003Fbuild_003Fidea_002Dsandbox_003FRD_002D2025_002E1_003Fconfig_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F8613a99658d444bdba9bd0306849b81b79c00_003Fcb_003F48cd7c16_003FEqualStringConstraint_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=58c56b00_002Df81e_002D48fd_002Da74f_002Dc8e84271fcf4/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="3" Name="Continuous Testing" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d0224289_002D64de_002D4f7a_002Db691_002Dee984460a4c7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1(&amp;quot;C:\\Dir1\\Solution1&amp;quot;,&amp;quot;C:\\Dir1\\Solution1\\Project1&amp;quot;,&amp;quot;Project1&amp;quot;)" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::BFC114B7-8C9A-45EE-9695-42B2935706DC::net9.0::RiderAutocolor.Test.Tests.Test1("C:\\Dir1\\Solution1","C:\\Dir1\\Solution1\\Project1","Project1")&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=daa8039b_002Da2c1_002D4ba1_002D830b_002Da19546e0d340/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
